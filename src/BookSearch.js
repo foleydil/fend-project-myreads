@@ -7,7 +7,8 @@ import Book from './Book'
 class BookSearch extends Component {
   state = {
     query: '',
-    results: []
+    results: [],
+    books: []
   }
 
   updateQuery = (query) =>
@@ -21,16 +22,27 @@ class BookSearch extends Component {
       if (results.error) {
         return this.setState({ results: [] });
       } else {
+        results.forEach(book => {
+          let shelfCheck = this.state.books.filter((b) => book.id === b.id);
+          if (shelfCheck[0]) {
+            book.shelf = shelfCheck[0].shelf;
+          }
+        });
         return this.setState({ results: results });
       }
     })
   }
 
-  conmponentDidMount() {
-    console.log(this);
+  componentDidMount() {
+    BooksAPI.getAll().then(results => {
+      if (results.error) {
+        return this.setState({ books: [] });
+      } else {
+        return this.setState({ books: results });
+      }
+    })
   }
 
-  render() {
     return (
       <div className="search-books">
         <div className="search-books-bar">

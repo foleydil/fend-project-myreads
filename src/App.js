@@ -14,15 +14,11 @@ class BooksApp extends React.Component {
     return (
       <div className="app">
         <Route path='/search' render={() => (
-          <BookSearch
-            shelvedBooks={this.state.shelvedBooks}
-          />
+          <BookSearch shelvedBooks={this.state.shelvedBooks}/>
         )}/>
 
         <Route exact path="/" render={() => (
-          <BookList
-            books={this.state.books}
-          />
+          <BookList books={this.state.books}/>
         )}/>
       </div>
     )
