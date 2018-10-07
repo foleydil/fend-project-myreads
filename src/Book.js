@@ -4,10 +4,6 @@ import React, { Component } from 'react'
 
 class Book extends Component {
   render() {
-    let shelf = 'none'
-    if(this.props.book.shelf) {
-      shelf = this.props.book.shelf;
-    }
 
     return(
       <li key={this.key}>
@@ -17,12 +13,12 @@ class Book extends Component {
 
             <div className="book-shelf-changer">
 
-              <select>
+              <select value={this.props.book.shelf || "none"} onChange={(event) => this.props.updateShelf(this.props.book, event.target.value)}>
                 <option value="move" disabled>Move to...</option>
-                <option value="currentlyReading" selected={(shelf==='currentlyReading') ? 'selected' : ''}>Currently Reading</option>
-                <option value="wantToRead" selected={(shelf==='wantToRead') ? 'selected' : ''}>Want to Read</option>
-                <option value="read"selected={(shelf==='read') ? 'selected' : ''}>Read</option>
-                <option value="none"selected={(shelf==='none') ? 'selected' : ''}>None</option>
+                <option value="currentlyReading">Currently Reading</option>
+                <option value="wantToRead">Want to Read</option>
+                <option value="read">Read</option>
+                <option value="none">None</option>
               </select>
             </div>
           </div>
