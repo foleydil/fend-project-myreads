@@ -1,6 +1,10 @@
-import React, { Component } from 'react'
+/* Component for displaying a Book.
+Renders a single book object, and receives the following props:
+'updateShelf' method,either from BookList.js or BookSearch.js,
+'book' object,
+'key' value. */
 
-//TODO: separate names of authors
+import React, { Component } from 'react'
 
 class Book extends Component {
   render() {

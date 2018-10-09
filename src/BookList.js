@@ -1,11 +1,14 @@
+/*Primary display component.
+Displays three shelves and the books that have been designated to each shelf.
+Receives 'books' array and 'UpdateShelf' method as props from App.js. */
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
-import * as BooksAPI from './BooksAPI'
 import Book from './Book'
-import BooksApp from './App'
 
 
 class BookList extends Component {
+//Three shelves render only the books from props.books with the correct shelf
 
   render() {
     return(

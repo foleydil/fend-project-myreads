@@ -1,3 +1,8 @@
+/* Search page component.
+Allows the user to search for books (housed on back-end server) and add to their shelves.
+Each Book's dropdown contains the current shelf, or "none" if not on a shelf.
+This component receives the 'updateShelf' method as a prop from App.js*/
+
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import * as BooksAPI from './BooksAPI'
@@ -11,9 +16,13 @@ class BookSearch extends Component {
     books: []
   }
 
+  /* Method to update search bar text when a user makes changes in the
+  search field */
   updateQuery = (query) =>
     this.setState({ query: query }, this.updateResults)
 
+  /* Method to fetch search results from BooksAPI and set as "results"
+  state. */
   updateResults() {
     if (this.state.query === '' || this.state.query === undefined) {
       return this.setState({ results: [] });
@@ -22,6 +31,9 @@ class BookSearch extends Component {
       if (results.error) {
         return this.setState({ results: [] });
       } else {
+        /* If the API fetch is successful and returns results, check
+        if that book is already on a shelf, and update the "results"
+        array with the current shelf before updating the state of "results"*/
         results.forEach(book => {
           let shelfCheck = this.state.books.filter((b) => book.id === b.id);
           if (shelfCheck[0]) {
@@ -34,6 +46,7 @@ class BookSearch extends Component {
   }
 
   componentDidMount() {
+    //Retrieve array of books currently on a shelf from BooksAPI, set as state
     BooksAPI.getAll().then(results => {
       if (results.error) {
         return this.setState({ books: [] });
